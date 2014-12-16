@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------
- *  Filename : mxCpuinfo.c
- *  Purpose  : processor information queries
- *  Author   : Kristian Loewe
+  File    : mxCpuinfo.c
+  Contents: processor information queries
+  Author  : Kristian Loewe
 ----------------------------------------------------------------------------*/
 #include <inttypes.h>
 #include "mex.h"
