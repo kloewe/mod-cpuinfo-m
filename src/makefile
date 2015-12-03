@@ -22,7 +22,7 @@ INCS       = -I$(CPUINFODIR)
 SUF        = mexa64
 OUTDIR     = ../private
 
-PRGS       = $(addprefix $(OUTDIR)/, mxNProc.$(SUF) \
+PRGS       = $(addprefix $(OUTDIR)/, mxProccnt.$(SUF) \
                mxHasMmx.$(SUF) mxHasSse.$(SUF) mxHasSse2.$(SUF) \
                mxHasSse3.$(SUF) mxHasSsse3.$(SUF) mxHasSse41.$(SUF) \
                mxHasSse42.$(SUF) mxHasPopcnt.$(SUF) mxHasAvx.$(SUF) )
@@ -37,8 +37,8 @@ $(PRGS): | $(OUTDIR)
 $(OUTDIR):
 	mkdir -p $(OUTDIR)
 
-# nproc
-$(OUTDIR)/mxNProc.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile
+# proccnt
+$(OUTDIR)/mxProccnt.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile
 	$(MEX) $(OPTS) $(DEFS) -DFEATURE=nproc $(CFLAGS) \
   $(INCS) $< $(CPUINFODIR)/cpuinfo.c -outdir $(OUTDIR) -output $@
 

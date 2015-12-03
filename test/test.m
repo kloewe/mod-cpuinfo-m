@@ -1,9 +1,9 @@
 addpath('../cpuinfo-m');
 
-which nproc
+which proccnt
 which cpuinfo
 
-nproc
+proccnt()
 
 cpuinfo('mmx')
 
