@@ -10,7 +10,7 @@ function hasFeature = cpuinfo(feature)
 %   Example:
 %   hasFeature = cpuinfo('avx');
 %
-%   See also: PROCCNT.
+%   See also: CORECNT, PROCCNT.
 %
 %   File:   cpuinfo.m
 %   Author: Kristian Loewe

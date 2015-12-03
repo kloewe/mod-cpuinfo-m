@@ -1,7 +1,10 @@
 addpath('../cpuinfo-m');
 
+which corecnt
 which proccnt
 which cpuinfo
+
+corecnt()
 
 proccnt()
 

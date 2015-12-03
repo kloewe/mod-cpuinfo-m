@@ -9,15 +9,17 @@
 
 /*--------------------------------------------------------------------------*/
 
-#define nproc  1  /* to check definitions */
-#define mmx    2
-#define sse    3
-#define sse2   4
-#define sse3   5
-#define ssse3  6
-#define sse41  7
-#define sse42  8
-#define popcnt 9
+#define ncores  1  /* to check definitions */
+#define nproc  2
+#define mmx     3
+#define sse     4
+#define sse2    5
+#define sse3    6
+#define ssse3   7
+#define sse41   8
+#define sse42   9
+#define popcnt 10
+#define avx    11
 
 /*--------------------------------------------------------------------------*/
 
@@ -26,8 +28,9 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     int32_t *result;
     plhs[0] = mxCreateNumericMatrix(1, 1, mxINT32_CLASS, mxREAL);
     result = (int32_t *)mxGetData(plhs[0]);
-
-    #if   FEATURE==nproc
+    #if   FEATURE==ncores
+    result[0] = corecnt();
+    #elif FEATURE==nproc
     result[0] = proccnt();
     #elif FEATURE==mmx
     result[0] = hasMMX();
@@ -47,5 +50,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     result[0] = hasPOPCNT();
     #elif FEATURE==avx
     result[0] = hasAVX();
+    #else
+    #  error "FEATURE: unexpected value"
     #endif
-}
+}  /* mexFunction() */
