@@ -10,7 +10,7 @@
 /*--------------------------------------------------------------------------*/
 
 #define ncores  1  /* to check definitions */
-#define nproc  2
+#define nproc   2
 #define mmx     3
 #define sse     4
 #define sse2    5
@@ -20,6 +20,7 @@
 #define sse42   9
 #define popcnt 10
 #define avx    11
+#define fma3   12
 
 /*--------------------------------------------------------------------------*/
 
@@ -50,6 +51,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     result[0] = hasPOPCNT();
     #elif FEATURE==avx
     result[0] = hasAVX();
+    #elif FEATURE==fma3
+    result[0] = hasFMA3();
     #else
     #  error "FEATURE: unexpected value"
     #endif

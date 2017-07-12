@@ -36,6 +36,8 @@ switch isae
     tf = mxHasPopcnt;
   case 'avx'
     tf = mxHasAvx;
+  case 'fma3'
+    tf = mxHasFma3;
   otherwise
     error('hasIsaExtension:checkArgs', 'Unknown extension.');
 end

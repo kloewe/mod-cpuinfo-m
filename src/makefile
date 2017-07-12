@@ -25,7 +25,8 @@ OUTDIR     = ../private
 PRGS       = $(addprefix $(OUTDIR)/, mxCorecnt.$(SUF) mxProccnt.$(SUF) \
                mxHasMmx.$(SUF) mxHasSse.$(SUF) mxHasSse2.$(SUF) \
                mxHasSse3.$(SUF) mxHasSsse3.$(SUF) mxHasSse41.$(SUF) \
-               mxHasSse42.$(SUF) mxHasPopcnt.$(SUF) mxHasAvx.$(SUF) )
+               mxHasSse42.$(SUF) mxHasPopcnt.$(SUF) mxHasAvx.$(SUF) \
+               mxHasFma3.$(SUF))
 
 #-----------------------------------------------------------------------------
 # Build Programs
@@ -90,4 +91,9 @@ $(OUTDIR)/mxHasPopcnt.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile
 # avx
 $(OUTDIR)/mxHasAvx.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile
 	$(MEX) $(OPTS) $(DEFS) -DFEATURE=avx $(CFLAGS) \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -outdir $(OUTDIR) -output $@
+
+# fma3
+$(OUTDIR)/mxHasFma3.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile
+	$(MEX) $(OPTS) $(DEFS) -DFEATURE=fma3 $(CFLAGS) \
   $(INCS) $< $(CPUINFODIR)/cpuinfo.c -outdir $(OUTDIR) -output $@
