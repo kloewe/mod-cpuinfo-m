@@ -20,7 +20,8 @@
 #define sse42   9
 #define popcnt 10
 #define avx    11
-#define fma3   12
+#define avx2   12
+#define fma3   13
 
 /*--------------------------------------------------------------------------*/
 
@@ -51,6 +52,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     result[0] = hasPOPCNT();
     #elif FEATURE==avx
     result[0] = hasAVX();
+    #elif FEATURE==avx2
+    result[0] = hasAVX2();
     #elif FEATURE==fma3
     result[0] = hasFMA3();
     #else

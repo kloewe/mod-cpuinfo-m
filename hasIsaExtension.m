@@ -5,7 +5,18 @@ function tf = hasIsaExtension(isae)
 %   extension E is supported by the CPU and 0 otherwise.
 %
 %   E can be one of the following strings:
-%   'mmx', 'sse', 'sse2', 'sse3', 'ssse3', 'sse41', 'sse42', 'popcnt', 'avx'.
+%
+%     'mmx'
+%     'sse'
+%     'sse2'
+%     'sse3'
+%     'ssse3'
+%     'sse41'
+%     'sse42'
+%     'popcnt'
+%     'avx'
+%     'avx2'
+%     'fma3'
 %
 %   Example:
 %
@@ -36,6 +47,8 @@ switch isae
     tf = mxHasPopcnt;
   case 'avx'
     tf = mxHasAvx;
+  case 'avx2'
+    tf = mxHasAvx2;
   case 'fma3'
     tf = mxHasFma3;
   otherwise
