@@ -26,7 +26,9 @@ PRGS       = $(addprefix $(OUTDIR)/, mxCorecnt.$(SUF) mxProccnt.$(SUF) \
                mxHasMmx.$(SUF) mxHasSse.$(SUF) mxHasSse2.$(SUF) \
                mxHasSse3.$(SUF) mxHasSsse3.$(SUF) mxHasSse41.$(SUF) \
                mxHasSse42.$(SUF) mxHasPopcnt.$(SUF) mxHasAvx.$(SUF) \
-               mxHasAvx2.$(SUF) mxHasFma3.$(SUF))
+               mxHasAvx2.$(SUF) mxHasFma3.$(SUF) mxHasAvx.$(SUF) \
+               mxHasAvx512f.$(SUF) mxHasAvx512cd.$(SUF) mxHasAvx512bw.$(SUF) \
+               mxHasAvx512dq.$(SUF) mxHasAvx512vl.$(SUF))
 
 #-----------------------------------------------------------------------------
 # Build Programs
@@ -101,4 +103,29 @@ $(OUTDIR)/mxHasAvx2.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile
 # fma3
 $(OUTDIR)/mxHasFma3.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile
 	$(MEX) $(OPTS) $(DEFS) -DFEATURE=fma3 $(CFLAGS) \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -outdir $(OUTDIR) -output $@
+
+# avx512f
+$(OUTDIR)/mxHasAvx512f.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile
+	$(MEX) $(OPTS) $(DEFS) -DFEATURE=avx512f $(CFLAGS) \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -outdir $(OUTDIR) -output $@
+
+# avx512cd
+$(OUTDIR)/mxHasAvx512cd.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile
+	$(MEX) $(OPTS) $(DEFS) -DFEATURE=avx512cd $(CFLAGS) \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -outdir $(OUTDIR) -output $@
+
+# avx512bw
+$(OUTDIR)/mxHasAvx512bw.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile
+	$(MEX) $(OPTS) $(DEFS) -DFEATURE=avx512bw $(CFLAGS) \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -outdir $(OUTDIR) -output $@
+
+# avx512dq
+$(OUTDIR)/mxHasAvx512dq.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile
+	$(MEX) $(OPTS) $(DEFS) -DFEATURE=avx512dq $(CFLAGS) \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -outdir $(OUTDIR) -output $@
+
+# avx512vl
+$(OUTDIR)/mxHasAvx512vl.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile
+	$(MEX) $(OPTS) $(DEFS) -DFEATURE=avx512vl $(CFLAGS) \
   $(INCS) $< $(CPUINFODIR)/cpuinfo.c -outdir $(OUTDIR) -output $@

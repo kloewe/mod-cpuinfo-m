@@ -17,6 +17,11 @@ function tf = hasIsaExtension(isae)
 %     'avx'
 %     'avx2'
 %     'fma3'
+%     'avx512f'
+%     'avx512cd'
+%     'avx512bw'
+%     'avx512dq'
+%     'avx512vl'
 %
 %   Example:
 %
@@ -51,8 +56,18 @@ switch isae
     tf = mxHasAvx2;
   case 'fma3'
     tf = mxHasFma3;
+  case 'avx512f'
+    tf = mxHasAvx512f;
+  case 'avx512cd'
+    tf = mxHasAvx512cd;
+  case 'avx512bw'
+    tf = mxHasAvx512bw;
+  case 'avx512dq'
+    tf = mxHasAvx512dq;
+  case 'avx512vl'
+    tf = mxHasAvx512vl;
   otherwise
-    error('hasIsaExtension:checkArgs', 'Unknown extension.');
+    error('hasIsaExtension:checkArgs', 'Unknown extension: %s', isae);
 end
 
 tf = logical(tf);
