@@ -1,11 +1,20 @@
 function n = corecnt
 %CORECNT Determine the number of processor cores.
 %
-%   n = CORECNT returns the number of processor cores.
+%   CORECNT returns the number of processor cores.
 %
-%   See also: PROCCNT, CPUINFO.
+%   Example:
 %
-%   File:   corecnt.m
+%     >> corecnt
+%     ans =
+%          4
+%
+%     >> proccnt
+%     ans =
+%          8
+%
+%   See also: PROCCNT, HASISAEXTENSION.
+%
 %   Author: Kristian Loewe
 
 n = double(mxCorecnt());

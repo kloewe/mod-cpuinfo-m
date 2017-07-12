@@ -1,11 +1,20 @@
 function n = proccnt
 %PROCCNT Determine the number of logical processors.
 %
-%   n = PROCCNT returns the number of logical processors.
+%   PROCCNT returns the number of logical processors.
 %
-%   See also: CORECNT, CPUINFO.
+%   Example:
 %
-%   File:   proccnt.m
+%     >> corecnt
+%     ans =
+%          4
+%
+%     >> proccnt
+%     ans =
+%          8
+%
+%   See also: CORECNT, HASISAEXTENSION.
+%
 %   Author: Kristian Loewe
 
 n = double(mxProccnt());
