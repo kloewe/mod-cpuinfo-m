@@ -1,0 +1,93 @@
+#-----------------------------------------------------------------------------
+# File    : makefile-oct
+# Contents: build MEX-files
+#           NB: tested with octave 4.2.1
+# Author  : Kristian Loewe 
+#           (with modifications for octave by Christina Rossmanith)
+#-----------------------------------------------------------------------------
+.SUFFIXES:                                   # remove built-in rules
+MAKEFLAGS  += -r
+
+SHELL      = /bin/bash
+CPUINFODIR = ../../cpuinfo/src
+
+MEX        = mkoctfile --mex
+OPTS       = -O
+# OPTS     = -v -O                           # verbose mex output
+# OPTS     = -g -v -O                        # verbose mex output & debugging
+DEFS       =
+CFLAGS     = CFLAGS='-Wall -Wextra -Wno-unused-parameter -Wconversion \
+             -pedantic -fPIC -std=c99 -march=native'
+INCS       = -I$(CPUINFODIR)
+SUF        = mex
+OUTDIR     = ../private
+
+PRGS       = $(addprefix $(OUTDIR)/, mxCorecnt.$(SUF) mxProccnt.$(SUF) \
+               mxHasMmx.$(SUF) mxHasSse.$(SUF) mxHasSse2.$(SUF) \
+               mxHasSse3.$(SUF) mxHasSsse3.$(SUF) mxHasSse41.$(SUF) \
+               mxHasSse42.$(SUF) mxHasPopcnt.$(SUF) mxHasAvx.$(SUF) )
+
+#-----------------------------------------------------------------------------
+# Build Programs
+#-----------------------------------------------------------------------------
+all: $(PRGS)
+
+$(PRGS): | $(OUTDIR)
+
+$(OUTDIR):
+	mkdir -p $(OUTDIR)
+
+# corecnt
+$(OUTDIR)/mxCorecnt.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile-oct
+	$(CFLAGS) $(MEX) $(OPTS) $(DEFS) -DFEATURE=ncores \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -o $@
+
+# proccnt
+$(OUTDIR)/mxProccnt.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile-oct
+	$(CFLAGS) $(MEX) $(OPTS) $(DEFS) -DFEATURE=nproc \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -o $@
+
+# mmx
+$(OUTDIR)/mxHasMmx.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile-oct
+	$(CFLAGS) $(MEX) $(OPTS) $(DEFS) -DFEATURE=mmx \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -o $@
+
+# sse
+$(OUTDIR)/mxHasSse.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile-oct
+	$(CFLAGS) $(MEX) $(OPTS) $(DEFS) -DFEATURE=sse \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -o $@
+
+# sse2
+$(OUTDIR)/mxHasSse2.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile-oct
+	$(CFLAGS) $(MEX) $(OPTS) $(DEFS) -DFEATURE=sse2 \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -o $@
+
+# sse3
+$(OUTDIR)/mxHasSse3.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile-oct
+	$(CFLAGS) $(MEX) $(OPTS) $(DEFS) -DFEATURE=sse3 \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -o $@
+
+# ssse3
+$(OUTDIR)/mxHasSsse3.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile-oct
+	$(CFLAGS) $(MEX) $(OPTS) $(DEFS) -DFEATURE=ssse3 \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -o $@
+
+# sse4.1
+$(OUTDIR)/mxHasSse41.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile-oct
+	$(CFLAGS) $(MEX) $(OPTS) $(DEFS) -DFEATURE=sse41 \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -o $@
+
+# sse4.2
+$(OUTDIR)/mxHasSse42.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile-oct
+	$(CFLAGS) $(MEX) $(OPTS) $(DEFS) -DFEATURE=sse42 \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -o $@
+
+# popcnt
+$(OUTDIR)/mxHasPopcnt.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile-oct
+	$(CFLAGS) $(MEX) $(OPTS) $(DEFS) -DFEATURE=popcnt \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -o $@
+
+# avx
+$(OUTDIR)/mxHasAvx.$(SUF): mxCpuinfo.c $(CPUINFODIR)/cpuinfo.* makefile-oct
+	$(CFLAGS) $(MEX) $(OPTS) $(DEFS) -DFEATURE=avx \
+  $(INCS) $< $(CPUINFODIR)/cpuinfo.c -o $@
