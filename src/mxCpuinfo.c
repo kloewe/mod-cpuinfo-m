@@ -3,94 +3,55 @@
   Contents: processor information queries
   Author  : Kristian Loewe
 ----------------------------------------------------------------------------*/
-#include <inttypes.h>
 #include "mex.h"
 #include "cpuinfo.h"
 
-/*--------------------------------------------------------------------------*/
-
-#define ncores    1  /* to check definitions */
-#define nproc     2
-#define mmx       3
-#define sse       4
-#define sse2      5
-#define sse3      6
-#define ssse3     7
-#define sse41     8
-#define sse42     9
-#define popcnt   10
-#define avx      11
-#define avx2     12
-#define fma3     13
-#define avx512f  14
-#define avx512cd 15
-#define avx512bw 16
-#define avx512dq 17
-#define avx512vl 18
-
-/*--------------------------------------------------------------------------*/
-
+/*----------------------------------------------------------------------------
+  Gateway Function
+----------------------------------------------------------------------------*/
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
-    int32_t *result;
+    int *result;
     plhs[0] = mxCreateNumericMatrix(1, 1, mxINT32_CLASS, mxREAL);
-    result = (int32_t *)mxGetData(plhs[0]);
+    result = (int *)mxGetData(plhs[0]);
 
-    #if   FEATURE==ncores
-    result[0] = corecnt();
+    int f = *(int *)mxGetData(prhs[0]);
 
-    #elif FEATURE==nproc
-    result[0] = proccnt();
+    if      (f ==  1)
+      *result = corecnt();
+    else if (f ==  2)
+      *result = proccnt();
+    else if (f ==  3)
+      *result = hasMMX();
+    else if (f ==  4)
+      *result = hasSSE();
+    else if (f ==  5)
+      *result = hasSSE2();
+    else if (f ==  6)
+      *result = hasSSE3();
+    else if (f ==  7)
+      *result = hasSSSE3();
+    else if (f ==  8)
+      *result = hasSSE41();
+    else if (f ==  9)
+      *result = hasSSE42();
+    else if (f == 10)
+      *result = hasPOPCNT();
+    else if (f == 11)
+      *result = hasAVX();
+    else if (f == 12)
+      *result = hasAVX2();
+    else if (f == 13)
+      *result = hasFMA3();
+    else if (f == 14)
+      *result = hasAVX512f();
+    else if (f == 15)
+      *result = hasAVX512cd();
+    else if (f == 16)
+      *result = hasAVX512bw();
+    else if (f == 17)
+      *result = hasAVX512dq();
+    else if (f == 18)
+      *result = hasAVX512vl();
 
-    #elif FEATURE==mmx
-    result[0] = hasMMX();
-
-    #elif FEATURE==sse
-    result[0] = hasSSE();
-
-    #elif FEATURE==sse2
-    result[0] = hasSSE2();
-
-    #elif FEATURE==sse3
-    result[0] = hasSSE3();
-
-    #elif FEATURE==ssse3
-    result[0] = hasSSSE3();
-
-    #elif FEATURE==sse41
-    result[0] = hasSSE41();
-
-    #elif FEATURE==sse42
-    result[0] = hasSSE42();
-
-    #elif FEATURE==popcnt
-    result[0] = hasPOPCNT();
-
-    #elif FEATURE==avx
-    result[0] = hasAVX();
-
-    #elif FEATURE==avx2
-    result[0] = hasAVX2();
-
-    #elif FEATURE==fma3
-    result[0] = hasFMA3();
-
-    #elif FEATURE==avx512f
-    result[0] = hasAVX512f();
-
-    #elif FEATURE==avx512cd
-    result[0] = hasAVX512cd();
-
-    #elif FEATURE==avx512bw
-    result[0] = hasAVX512bw();
-
-    #elif FEATURE==avx512dq
-    result[0] = hasAVX512dq();
-
-    #elif FEATURE==avx512vl
-    result[0] = hasAVX512vl();
-
-    #else
-    #  error "FEATURE: unexpected value"
-    #endif
-}  /* mexFunction() */
+}  // mexFunction()

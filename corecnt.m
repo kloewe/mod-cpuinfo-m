@@ -17,6 +17,6 @@ function n = corecnt
 %
 %   Author: Kristian Loewe
 
-n = double(mxCorecnt());
+n = double(mxCpuinfo(int32(1)));
 
 end

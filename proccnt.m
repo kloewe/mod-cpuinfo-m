@@ -17,6 +17,6 @@ function n = proccnt
 %
 %   Author: Kristian Loewe
 
-n = double(mxProccnt());
+n = double(mxCpuinfo(int32(2)));
 
 end
