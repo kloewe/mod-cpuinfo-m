@@ -1,8 +1,10 @@
-
-
-fprintf('%s: %s\n', 'corecnt', which('corecnt'));
-fprintf('%s: %s\n', 'proccnt', which('proccnt'));
-fprintf('%s: %s\n', 'hasIsaExtension', which('hasIsaExtension'));
+%TEST_CPUINFO
+%
+%   Requires the following modules:
+%
+%     cpuinfo-m
+%
+%   Author: Kristian Loewe
 
 fprintf('%8s: %d\n', 'corecnt', corecnt());
 
